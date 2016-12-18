@@ -2,10 +2,10 @@
 
 ## 概要
 
-hello/binをコンパイルし実行するとでhelloというだけのサンプルですが、
+hello/binをコンパイルし実行するとでhelloというだけのサンプルですが、  
 目的はgo get, go build, go installの動作確認のためのサンプルです
 
-dockerのgolangイメージでテストをしています
+dockerのgolangイメージでテストをしています  
 dockerのrunコマンドサンプル
 ```
 docker run --rm --name test01 -it golang /bin/bash
@@ -20,14 +20,6 @@ docker run --rm --name test01 -it golang /bin/bash
 .
 |-- bin
 `-- src
-```
-
-## <a name="reset">ファイルを初期化する</a>
-結果を確認するためにファイルを全削除するコマンドです
-```
-rm -rf /go/bin /go/pkg /go/src
-mkdir -m 777 /go/bin /go/src
-mkdir -m 755 /go/pkg
 ```
 
 ## go get
@@ -46,10 +38,18 @@ getするのがbinでもpackageでも動作に違いはない
 
 ### 実行
 
-ファイルを初期化
+#### ファイルを初期化
+
 ```
-# go get -u github.com/awisu2/gosample/hello/bin
-# tree /go
+rm -rf /go/bin /go/pkg /go/src
+mkdir -m 777 /go/bin /go/src
+mkdir -m 755 /go/pkg
+```
+
+#### getを実行
+```
+go get -u github.com/awisu2/gosample/hello/bin
+tree /go
 .
 |-- bin
 |   `-- bin
@@ -104,10 +104,10 @@ getは行われないので、importに対応するファイルがない場合�
 
 ### 実行
 ```
-# go get -u github.com/awisu2/gosample/hello/bin
+go get -u github.com/awisu2/gosample/hello/bin
 ```
 
-binとpkgを削除
+#### binとpkgを削除
 
 ```
 rm -rf /go/bin /go/pkg
@@ -115,6 +115,7 @@ mkdir -m 777 /go/bin
 mkdir -m 755 /go/pkg
 ```
 
+#### buildを実行
 ```
 cd /go/src/github.com/awisu2/gosample/hello/bin/
 go build -v
@@ -165,7 +166,7 @@ tree /go
 # go get -u github.com/awisu2/gosample/hello/bin
 ```
 
-binとpkgを削除
+#### binとpkgを削除
 
 ```
 rm -rf bin pkg
@@ -173,7 +174,7 @@ mkdir -m 777 /go/bin
 mkdir -m 755 /go/pkg
 ```
 
-installを実行
+#### installを実行
 
 ```
 cd src/github.com/awisu2/gosample/hello/bin/
