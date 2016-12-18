@@ -14,9 +14,9 @@ docker run --rm --name test01 -it golang /bin/bash
 ## 準備
 
 ```
-# apt-get update
-# apt-get install tree
-# tree /go
+apt-get update
+apt-get install tree
+tree /go
 .
 |-- bin
 `-- src
@@ -163,13 +163,13 @@ tree /go
 ### 実行
 
 ```
-# go get -u github.com/awisu2/gosample/hello/bin
+go get -u github.com/awisu2/gosample/hello/bin
 ```
 
 #### binとpkgを削除
 
 ```
-rm -rf bin pkg
+rm -rf /go/bin /go/pkg
 mkdir -m 777 /go/bin
 mkdir -m 755 /go/pkg
 ```
@@ -177,7 +177,7 @@ mkdir -m 755 /go/pkg
 #### installを実行
 
 ```
-cd src/github.com/awisu2/gosample/hello/bin/
+cd /go/src/github.com/awisu2/gosample/hello/bin/
 go install -v
 tree /go
 .
