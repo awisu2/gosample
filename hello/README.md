@@ -3,3 +3,8 @@
 ## 概要
 
 go get, go build, go installの動作確認のためのサンプルです
+
+## 使い方
+
+
+## 結果

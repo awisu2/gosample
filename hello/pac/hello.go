@@ -1,9 +1,9 @@
 package pac
 
 import (
-	"fmt"
+	"github.com/awisu2/golib/log"
 )
 
 func Hello() {
-	fmt.Println("Hello.")
+	log.Println("Hello.")
 }
