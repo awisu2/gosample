@@ -30,6 +30,8 @@ func main() {
 	sameFunc(Multipl{}, 2, 3) // 6
 
 	anyValue()
+
+	intefaceMaps()
 }
 
 // 関数がそろっていれば処理を呼ぶことが可能
@@ -72,4 +74,16 @@ func anyValue() {
 		"p": p,
 	}
 	fmt.Println(m)
+}
+
+func intefaceMaps() {
+	fmt.Println("===== intefaceMaps =====")
+
+	imap := map[string]I1{}
+	imap["plus"] = Plus{}
+	imap["multipl"] = Multipl{}
+
+	for k, v := range imap {
+		fmt.Println(k, v.Calc(2, 3))
+	}
 }
