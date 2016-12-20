@@ -8,6 +8,25 @@ type S1 struct {
 	Name string
 }
 
+func NewData() Data {
+	return Data{
+		Vals: []map[string]string{},
+	}
+}
+
+type Datas []Data
+
+type Data struct {
+	Vals []map[string]string
+}
+
+func (self *Data) Val() map[string]string {
+	if self.Vals == nil {
+		return nil
+	}
+	return self.Vals[0]
+}
+
 func main() {
 	Args()
 }
@@ -38,4 +57,8 @@ func ArgsCallPtr(arrPtr []*S1) {
 	for _, s := range arrPtr {
 		s.Name += "ArgsCall"
 	}
+}
+
+func call() {
+
 }
