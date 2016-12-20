@@ -2,11 +2,13 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 )
 
 func main() {
 	scala()
 	pointer()
+	convert()
 }
 
 func scala() {
@@ -36,4 +38,16 @@ func pointer() {
 	SPtr = (*S)(sPtr)
 
 	fmt.Println(sPtr, SPtr)
+}
+
+func convert() {
+	var i int
+	var s string
+
+	// int -> string
+	i = 9999
+	s = strconv.Itoa(i)
+
+	// int:9999 => string:9999
+	fmt.Printf("%T:%v => %T:%v", i, i, s, s)
 }
