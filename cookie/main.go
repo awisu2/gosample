@@ -58,9 +58,10 @@ func HandlerSet(w http.ResponseWriter, r *http.Request) {
 		// Nameは取得時のキーとして作用しますが、取得時の状況によって対象が変化します
 		// cookiの本来的なパラメータとしては、Name,Path,Domainで一つのキーとして作用しています
 		// 方法はあるのかもしれませんが、valueに日本語は指定できないみたいです
+		// Pathは前方一致
 		&http.Cookie{Name: NAME, Value: "value"},
 		&http.Cookie{Name: NAME, Value: "valueA", Path: "/a"},
-		&http.Cookie{Name: NAME, Value: "valueB", Path: "/b"}, // 前方一致のため、
+		&http.Cookie{Name: NAME, Value: "valueB", Path: "/b"},
 		&http.Cookie{Name: NAME, Value: "valueAB", Path: "/a/b"},
 		&http.Cookie{Name: NAME_DOMAIN, Value: "valueDomain", Domain: "127.0.0.1"},
 		// キーの生存可能経過時間
@@ -69,7 +70,7 @@ func HandlerSet(w http.ResponseWriter, r *http.Request) {
 		&http.Cookie{Name: NAME_EXPIRE, Value: "5 second", Expires: time.Now().Add(time.Second * 5)},
 		// httpsのみ
 		&http.Cookie{Name: NAME_SECURE, Value: "secure", Secure: true},
-		//
+		// ???
 		&http.Cookie{Name: NAME_RAW, Value: "raw", Raw: "raw"},
 	}
 
