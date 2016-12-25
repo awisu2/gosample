@@ -13,8 +13,6 @@ type val struct {
 	value int
 }
 
-var arrays = []val{}
-
 const NUM = 1000000
 
 func main() {
@@ -22,7 +20,7 @@ func main() {
 }
 
 //mapとスライスでの負荷調査
-//値登録はarrayのほうが早いがほぼ誤差範囲、取得時はmapのほうが高速
+//値登録はスライスのほうが早い(makeの時に確保されていればさらに早い)がほぼ誤差範囲、取得時はmapのほうが高速
 // set map time :    571288700
 // set array time :  305243900
 // map time :          0 , value: 1000000
@@ -38,6 +36,7 @@ func loadAverage() {
 	fmt.Println("set map time : ", after-before)
 
 	before = now()
+	arrays := make([]val, NUM)
 	for i := 1; i <= NUM; i++ {
 		arrays = append(arrays, val{"key" + strconv.Itoa(i), i})
 	}
