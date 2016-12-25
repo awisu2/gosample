@@ -11,6 +11,7 @@ func main() {
 	matchString()
 	matchReader()
 	regexpTests()
+	allMatch()
 }
 
 func matchString() {
@@ -118,4 +119,28 @@ func regexpTests() {
 	finds = reg.FindAllString("Id123番", -1)
 	fmt.Println(finds)
 
+}
+
+func allMatch() {
+	fmt.Println("========== allMatch(comma int value) ==========")
+
+	reg := regexp.MustCompile(`^([0-9]+,)*[0-9]$`)
+	// true
+	printBool(reg.Match([]byte("1,2,3")))
+	// false
+	printBool(reg.Match([]byte(",1,2,3")))
+	// false
+	printBool(reg.Match([]byte("1,2,3,")))
+	// true
+	printBool(reg.Match([]byte("1")))
+	// false
+	printBool(reg.Match([]byte("")))
+}
+
+func printBool(b bool) {
+	if b {
+		fmt.Println("true")
+	} else {
+		fmt.Println("false")
+	}
 }
