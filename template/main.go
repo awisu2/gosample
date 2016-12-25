@@ -21,6 +21,8 @@ func defaultHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	ExecuteTemplateMyWrite()
+
 	http.HandleFunc("/", defaultHandler)
 	http.ListenAndServe(":8080", nil)
 }
@@ -130,4 +132,55 @@ func ExampleEscape(w http.ResponseWriter) {
 	fmt.Println(template.JSEscaper(v...))
 
 	fmt.Println(template.URLQueryEscaper(v...))
+}
+
+//
+//
+// 自作インタフェースで出力を取得
+// 変数として取得
+//
+type MyWrite struct {
+	P []byte
+}
+
+func (self *MyWrite) Write(p []byte) (n int, err error) {
+	if self.P == nil {
+		self.P = []byte{}
+	}
+	self.P = append(self.P, p...)
+	return len(p), nil
+}
+
+func (self *MyWrite) String() (s string) {
+	if self.P == nil {
+		return ""
+	}
+	return string(self.P)
+}
+func (self *MyWrite) Clear() {
+	self.P = nil
+}
+
+func ExecuteTemplateMyWrite() {
+	t := template.New("test")
+	t = template.Must(t.Parse("sjlsj;ljks{{define \"base\"}}test : {{.foo}}, {{.bar}}<br>{{end}}"))
+
+	fmt.Println("name : " + t.Name())
+	dat := map[string]string{"foo": "bar"}
+
+	w := &MyWrite{}
+	err := t.ExecuteTemplate(w, "base", dat)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Printf("ExecuteTemplate : %v\n", w.String())
+
+	w.Clear()
+	err = t.Execute(w, dat)
+	if err != nil {
+		fmt.Println("Execute Error: ", err)
+		return
+	}
+	fmt.Printf("Execute : %v\n", w.String())
 }
