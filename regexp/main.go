@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"regexp"
 	"strings"
+	"strconv"
 )
 
 func main() {
@@ -119,6 +120,38 @@ func regexpTests() {
 	finds = reg.FindAllString("Id123番", -1)
 	fmt.Println(finds)
 
+
+	// 全部を同じ長さの0フィルにする
+	// a_0123_0123_3456
+	repStr := zeroFillInStr("a_123_123_3456", 4)
+	fmt.Println(repStr)
+	// a_123_123_3456
+	repStr = zeroFillInStr("a_123_123_3456", 2)
+	fmt.Println(repStr)
+}
+
+/**
+ * 全部を同じ長さの0フィルにする
+ * 一致した文字列を変換する関数はなく
+ * 同じ文字が連続した場合などに対処するため直指定での変換を採用
+ */
+func zeroFillInStr(str string, length int) string {
+	// 文字列から数値を抜粋
+	reg := regexp.MustCompile(`[0-9]+`)
+	finds := reg.FindAllString(str, -1)
+
+	// Replacer用に変換配列を作成
+	replaces := []string{}
+	format := `%0` + strconv.Itoa(length) + `d`
+	for _, find := range finds {
+		replaces = append(replaces, find)
+		i, _ := strconv.Atoi(find)
+		replaces = append(replaces, fmt.Sprintf(format, i))
+	}
+	r := strings.NewReplacer(replaces...)
+
+	// 変換
+	return r.Replace(str)
 }
 
 func allMatch() {
