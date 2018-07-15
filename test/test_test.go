@@ -2,6 +2,8 @@ package test
 
 import (
 	"testing"
+  "os"
+  "strings"
 )
 
 //--- FAIL: TestA (0.00s)
